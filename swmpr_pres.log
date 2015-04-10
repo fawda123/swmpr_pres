@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  10 APR 2015 08:03
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.8.29)  10 APR 2015 16:33
 entering extended mode
 **swmpr_pres.tex
 (M:\presentations\swmpr_pres\swmpr_pres.tex
@@ -1317,6 +1317,8 @@ File: tikzlibraryfadings.code.tex 2009/11/15 v2.10 (rcs-revision 1.2)
 fadings.code.tex
 File: pgflibraryfadings.code.tex 2008/02/07 v2.10 (rcs-revision 1.3)
 )))
+Package hyperref Info: Option `colorlinks' set `true' on input line 62.
+
 (C:\Users\mbeck\AppData\Roaming\MiKTeX\2.9\tex\latex\subfig\subfig.sty
 Package: subfig 2005/06/28 ver: 1.3 subfig package
 
@@ -1358,20 +1360,20 @@ Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
 tim
 )
 (M:\presentations\swmpr_pres\swmpr_pres.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 88.
-LaTeX Font Info:    ... okay on input line 88.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 91.
+LaTeX Font Info:    ... okay on input line 91.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1409,7 +1411,7 @@ LaTeX Font Info:    ... okay on input line 88.
 
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box101
-Package hyperref Info: Link coloring OFF on input line 88.
+Package hyperref Info: Link coloring ON on input line 91.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -1419,9 +1421,9 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count320
 )
-LaTeX Info: Redefining \ref on input line 88.
-LaTeX Info: Redefining \pageref on input line 88.
-LaTeX Info: Redefining \nameref on input line 88.
+LaTeX Info: Redefining \ref on input line 91.
+LaTeX Info: Redefining \pageref on input line 91.
+LaTeX Info: Redefining \nameref on input line 91.
 
 (M:\presentations\swmpr_pres\swmpr_pres.out)
 (M:\presentations\swmpr_pres\swmpr_pres.out)
@@ -1453,7 +1455,7 @@ Dictionary: translator-numbers-dictionary, Language: English
 ts\translator-theorem-dictionary\translator-theorem-dictionary-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
 )
-LaTeX Info: Redefining \includegraphics on input line 88.
+LaTeX Info: Redefining \includegraphics on input line 91.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
@@ -1461,72 +1463,244 @@ Package caption Info: End \AtBeginDocument code.
 (M:\presentations\swmpr_pres\swmpr_pres.nav)
 
 Package hyperref Warning: Option `pdfauthor' has already been used,
-(hyperref)                setting the option has no effect on input line 92.
+(hyperref)                setting the option has no effect on input line 95.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 101.
+LaTeX Font Info:    Try loading font information for U+msa on input line 109.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 101.
+LaTeX Font Info:    Try loading font information for U+msb on input line 109.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<fig/back_tmp.pdf, id=34, 505.89pt x 505.89pt>
+<fig/title_pic.png, id=46, 757.8714pt x 209.583pt>
+File: fig/title_pic.png Graphic file (type png)
+ <use fig/title_pic.png>
+Package pdftex.def Info: fig/title_pic.png used on input line 109.
+(pdftex.def)             Requested size: 239.60567pt x 66.25883pt.
+
+<fig/back_tmp.pdf, id=48, 505.89pt x 505.89pt>
 File: fig/back_tmp.pdf Graphic file (type pdf)
  <use fig/back_tmp.pdf>
-Package pdftex.def Info: fig/back_tmp.pdf used on input line 101.
+Package pdftex.def Info: fig/back_tmp.pdf used on input line 109.
 (pdftex.def)             Requested size: 364.20192pt x 273.15337pt.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <4> not available
-(Font)              size <5> substituted on input line 101.
+(Font)              size <5> substituted on input line 109.
 
 [1
 
 {C:/Users/mbeck/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <M:/presenta
-tions/swmpr_pres/fig/back_tmp.pdf>]
+tions/swmpr_pres/fig/back_tmp.pdf> <M:/presentations/swmpr_pres/fig/title_pic.p
+ng>]
 File: fig/back_tmp.pdf Graphic file (type pdf)
  <use fig/back_tmp.pdf>
-Package pdftex.def Info: fig/back_tmp.pdf used on input line 108.
+Package pdftex.def Info: fig/back_tmp.pdf used on input line 122.
 (pdftex.def)             Requested size: 364.20192pt x 273.15337pt.
-Package atenddvi Info: Last page = 2.
  [2
+
+]
+File: fig/back_tmp.pdf Graphic file (type pdf)
+ <use fig/back_tmp.pdf>
+Package pdftex.def Info: fig/back_tmp.pdf used on input line 132.
+(pdftex.def)             Requested size: 364.20192pt x 273.15337pt.
+ [3
+
+]
+<fig/NERRS_locations.png, id=144, 725.71124pt x 446.41782pt>
+File: fig/NERRS_locations.png Graphic file (type png)
+
+<use fig/NERRS_locations.png>
+Package pdftex.def Info: fig/NERRS_locations.png used on input line 140.
+(pdftex.def)             Requested size: 308.06367pt x 189.50368pt.
+File: fig/back_tmp.pdf Graphic file (type pdf)
+ <use fig/back_tmp.pdf>
+Package pdftex.def Info: fig/back_tmp.pdf used on input line 140.
+(pdftex.def)             Requested size: 364.20192pt x 273.15337pt.
+ [4
+
+ <M:/presentations/swmpr_pres/fig/NERRS_locations.png>]
+File: fig/back_tmp.pdf Graphic file (type pdf)
+ <use fig/back_tmp.pdf>
+Package pdftex.def Info: fig/back_tmp.pdf used on input line 160.
+(pdftex.def)             Requested size: 364.20192pt x 273.15337pt.
+ [5
+
+]
+<fig/cdmo_front.png, id=199, 730.22812pt x 406.51875pt>
+File: fig/cdmo_front.png Graphic file (type png)
+
+<use fig/cdmo_front.png>
+Package pdftex.def Info: fig/cdmo_front.png used on input line 166.
+(pdftex.def)             Requested size: 342.2953pt x 190.55519pt.
+File: fig/back_tmp.pdf Graphic file (type pdf)
+ <use fig/back_tmp.pdf>
+Package pdftex.def Info: fig/back_tmp.pdf used on input line 166.
+(pdftex.def)             Requested size: 364.20192pt x 273.15337pt.
+ [6
+
+ <M:/presentations/swmpr_pres/fig/cdmo_front.png>] <fig/qaqc_ex.png, id=226, 63
+0.10406pt x 304.13625pt>
+File: fig/qaqc_ex.png Graphic file (type png)
+
+<use fig/qaqc_ex.png>
+Package pdftex.def Info: fig/qaqc_ex.png used on input line 173.
+(pdftex.def)             Requested size: 308.06367pt x 148.69392pt.
+File: fig/back_tmp.pdf Graphic file (type pdf)
+ <use fig/back_tmp.pdf>
+Package pdftex.def Info: fig/back_tmp.pdf used on input line 173.
+(pdftex.def)             Requested size: 364.20192pt x 273.15337pt.
+ [7
+
+ <M:/presentations/swmpr_pres/fig/qaqc_ex.png>]
+File: fig/back_tmp.pdf Graphic file (type pdf)
+ <use fig/back_tmp.pdf>
+Package pdftex.def Info: fig/back_tmp.pdf used on input line 186.
+(pdftex.def)             Requested size: 364.20192pt x 273.15337pt.
+ [8
+
+]
+(M:\presentations\swmpr_pres\swmpr_pres.vrb
+<fig/swmpr_logo.png, id=280, 660.066pt x 209.583pt>
+File: fig/swmpr_logo.png Graphic file (type png)
+ <use fig/swmpr_logo.png>
+Package pdftex.def Info: fig/swmpr_logo.png used on input line 2.
+(pdftex.def)             Requested size: 308.06367pt x 97.81325pt.
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 8.
+)
+File: fig/back_tmp.pdf Graphic file (type pdf)
+
+<use fig/back_tmp.pdf>
+Package pdftex.def Info: fig/back_tmp.pdf used on input line 202.
+(pdftex.def)             Requested size: 364.20192pt x 273.15337pt.
+ [9
+
+ <M:/presentations/swmpr_pres/fig/swmpr_logo.png>]
+(M:\presentations\swmpr_pres\swmpr_pres.vrb)
+File: fig/back_tmp.pdf Graphic file (type pdf)
+ <use fig/back_tmp.pdf>
+Package pdftex.def Info: fig/back_tmp.pdf used on input line 213.
+(pdftex.def)             Requested size: 364.20192pt x 273.15337pt.
+ [10
+
+]
+<fig/hadley_book.png, id=340, 886.81313pt x 515.67656pt>
+File: fig/hadley_book.png Graphic file (type png)
+
+<use fig/hadley_book.png>
+Package pdftex.def Info: fig/hadley_book.png used on input line 219.
+(pdftex.def)             Requested size: 308.06367pt x 179.1361pt.
+File: fig/back_tmp.pdf Graphic file (type pdf)
+ <use fig/back_tmp.pdf>
+Package pdftex.def Info: fig/back_tmp.pdf used on input line 219.
+(pdftex.def)             Requested size: 364.20192pt x 273.15337pt.
+ [11
+
+ <M:/presentations/swmpr_pres/fig/hadley_book.png>]
+File: fig/back_tmp.pdf Graphic file (type pdf)
+ <use fig/back_tmp.pdf>
+Package pdftex.def Info: fig/back_tmp.pdf used on input line 268.
+(pdftex.def)             Requested size: 364.20192pt x 273.15337pt.
+ [12
+
+]
+File: fig/back_tmp.pdf Graphic file (type pdf)
+ <use fig/back_tmp.pdf>
+Package pdftex.def Info: fig/back_tmp.pdf used on input line 281.
+(pdftex.def)             Requested size: 364.20192pt x 273.15337pt.
+
+[13
+
+]
+File: fig/back_tmp.pdf Graphic file (type pdf)
+ <use fig/back_tmp.pdf>
+Package pdftex.def Info: fig/back_tmp.pdf used on input line 297.
+(pdftex.def)             Requested size: 364.20192pt x 273.15337pt.
+ [14
+
+]
+File: fig/back_tmp.pdf Graphic file (type pdf)
+ <use fig/back_tmp.pdf>
+Package pdftex.def Info: fig/back_tmp.pdf used on input line 313.
+(pdftex.def)             Requested size: 364.20192pt x 273.15337pt.
+ [15
+
+]
+File: fig/back_tmp.pdf Graphic file (type pdf)
+
+<use fig/back_tmp.pdf>
+Package pdftex.def Info: fig/back_tmp.pdf used on input line 329.
+(pdftex.def)             Requested size: 364.20192pt x 273.15337pt.
+ [16
+
+] (M:\presentations\swmpr_pres\swmpr_pres.vrb)
+File: fig/back_tmp.pdf Graphic file (type pdf)
+
+<use fig/back_tmp.pdf>
+Package pdftex.def Info: fig/back_tmp.pdf used on input line 354.
+(pdftex.def)             Requested size: 364.20192pt x 273.15337pt.
+ [17
+
+] (M:\presentations\swmpr_pres\swmpr_pres.vrb
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 6.
+)
+File: fig/back_tmp.pdf Graphic file (type pdf)
+
+<use fig/back_tmp.pdf>
+Package pdftex.def Info: fig/back_tmp.pdf used on input line 380.
+(pdftex.def)             Requested size: 364.20192pt x 273.15337pt.
+ [18
+
+] (M:\presentations\swmpr_pres\swmpr_pres.vrb)
+File: fig/back_tmp.pdf Graphic file (type pdf)
+
+<use fig/back_tmp.pdf>
+Package pdftex.def Info: fig/back_tmp.pdf used on input line 385.
+(pdftex.def)             Requested size: 364.20192pt x 273.15337pt.
+Package atenddvi Info: Last page = 19.
+ [19
 
 ]
 \tf@nav=\write6
 \tf@toc=\write7
 \tf@snm=\write8
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 110.
-Package atveryend Info: Executing hook `AfterLastShipout' on input line 110.
-
-(M:\presentations\swmpr_pres\swmpr_pres.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 110.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 110.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 388.
+Package atveryend Info: Executing hook `AfterLastShipout' on input line 388.
+ (M:\presentations\swmpr_pres\swmpr_pres.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 388.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 388.
 Package rerunfilecheck Info: File `swmpr_pres.out' has not changed.
-(rerunfilecheck)             Checksum: 0D0B7CA0231147F6D30E7885769EEDAA;46.
+(rerunfilecheck)             Checksum: 6AF8BD677A4C70252391AB0D0829D76C;201.
 
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 110.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 388.
  ) 
 Here is how much of TeX's memory you used:
- 27913 strings out of 493921
- 553130 string characters out of 3147282
- 666527 words of memory out of 3000000
- 30575 multiletter control sequences out of 15000+200000
- 9231 words of font info for 36 fonts, out of 3000000 for 9000
+ 28099 strings out of 493921
+ 556401 string characters out of 3147282
+ 671610 words of memory out of 3000000
+ 30702 multiletter control sequences out of 15000+200000
+ 10900 words of font info for 42 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  49i,16n,73p,472b,567s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Pro
-gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program File
-s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX 2
-.9/fonts/type1/public/amsfonts/cm/cmr8.pfb>
-Output written on swmpr_pres.pdf (2 pages, 68669 bytes).
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><C:/Program 
+Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/Mi
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/
+fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/typ
+e1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/
+amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/c
+m/cmtt10.pfb>
+Output written on swmpr_pres.pdf (19 pages, 3952487 bytes).
 PDF statistics:
- 112 PDF objects out of 1000 (max. 8388607)
- 6 named destinations out of 1000 (max. 500000)
- 152 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 613 PDF objects out of 1000 (max. 8388607)
+ 43 named destinations out of 1000 (max. 500000)
+ 212 words of extra memory for PDF output out of 10000 (max. 10000000)
 

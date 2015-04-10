@@ -9,14 +9,16 @@
 \usepackage{tikz}
 \usetikzlibrary{decorations.pathreplacing}
 \usetikzlibrary{shapes,arrows,positioning,shadows}
+\definecolor{links}{HTML}{2A1B81}
+\hypersetup{colorlinks,linkcolor=links,urlcolor=links}
 \usepackage{subfig}
 \usepackage{pgf}
 
 % knitr and global options
 <<setup, include = F, cache = F>>=
 library(knitr)
-opts_chunk$set(fig.path = 'fig/', fig.align = 'center', fig.show = 'hold', message = FALSE, dev = 'pdf', dev.args = list(family = 'serif'), fig.pos = '!ht', warning = FALSE, size = 'scriptsize', cache = TRUE)
-options(replace.assign = TRUE, width = 80, digits = 1)
+opts_chunk$set(fig.path = 'fig/', fig.align = 'center', fig.show = 'hold', message = FALSE, dev = 'pdf', dev.args = list(family = 'serif'), fig.pos = '!ht', warning = FALSE, cache = TRUE, prompt = TRUE, background = '#EDF8FB')
+options(replace.assign = TRUE, width = 60, digits = 1)
 @
 
 % load R libraries
@@ -26,7 +28,7 @@ library(RColorBrewer)
 library(scales)
 @
 
-% custom colors
+% custom colors, do not cache
 <<mypal, echo = F, results = 'asis', cache = F>>=
 pal <- function(x) brewer.pal(x, 'BuGn')
 num_col <- 5
@@ -39,7 +41,7 @@ for(i in 1:num_col){
   
 }
 
-bg_col <- scales::alpha(pal(num_col)[3], 0.3)
+bg_col <- pal(num_col)[1]
 
 pdf('fig/back_tmp.pdf',bg = bg_col)
 frame()
@@ -68,6 +70,7 @@ theme_mine <- function (base_size = 12, base_family = "") {
 theme_set(theme_mine())
 @
 
+% colors and macros
 \setbeamercolor{title}{fg=mypal5} % main title
 \setbeamercolor{frametitle}{fg=mypal4, bg=mypal2} % frame titles
 \setbeamercolor{structure}{fg=mypal4} % bottom banner
@@ -86,20 +89,260 @@ theme_set(theme_mine())
 
 \author[M. Beck]{Marcus W. Beck\inst{1}}
 
-\date{}
+\date{April 15, 2015}
 
 \institute[]{\inst{1} ORISE, USEPA NHEERL Gulf Ecology Division\\ Email: \href{mailto:beck.marcus@epa.gov}{beck.marcus@epa.gov}}
+
+\titlegraphic{
+\centerline{
+\includegraphics[width=0.7\textwidth]{fig/title_pic.png}}
+}
 
 %%%%%%
 \begin{frame}
 \titlepage
 \end{frame}
 
-\section{background}
+\section{Background}
 
 %%%%%%
-\begin{frame}{overview}
-
+\begin{frame}{Overview}
+A mixture of things...\\~\\
+\begin{itemize}
+\item What is NERSS/SWMP and motivation for creating the package \\~\\
+\item The process of package development \\~\\
+\item What can SWMPr do \\~\\
+\item What has SWMPr done \\~\\
+\end{itemize}
 \end{frame}
+
+\section{Motivation}
+
+%%%%%%
+\begin{frame}{What is NERRS/SWMP?}{}
+{\bf NERRS}\\
+National Estuarine Research Reserve System, established by Coastal Zone Management Act of 1972.  Address goals for \Bigtxt{long-term research}, \Bigtxt{monitoring}, \Bigtxt{education}, and \Bigtxt{stewardship} for more effective coastal management.\\~\\
+{\bf SWMP}\\
+System Wide Monitoring Program, initiated in 1995 to provide \Bigtxt{continuous monitoring} data at over 300 stations in in each of the 28 NERRS reserves \\~\\
+\end{frame}
+
+%%%%%%
+\begin{frame}{What is NERRS/SWMP?}
+\centerline{\includegraphics[width = 0.9\textwidth]{fig/NERRS_locations.png}}
+\tiny
+\flushright
+\href{http://nerrs.noaa.gov/ReservesMap.aspx}{http://nerrs.noaa.gov/ReservesMap.aspx}
+\end{frame}
+
+%%%%%%
+\begin{frame}{What is NERRS/SWMP?}
+Each reserve has fixed, continuous monitoring stations for \Bigtxt{water quality} (15 min), \Bigtxt{meteorology} (15 min), and \Bigtxt{nutrients} (monthly)\\~\\
+The parameters for a station are specific to the parameter type \\~\\
+\begin{columns}[t]
+\begin{column}{0.3\textwidth}
+\Bigtxt{Water quality} \\~\\
+\Sexpr{paste(gsub('_', '\\_', grep('^f_', param_names()$wq, invert = T, value = T), fixed = T), collapse = ', ')}
+\end{column}
+\begin{column}{0.3\textwidth}
+\Bigtxt{Meteorology} \\~\\
+\Sexpr{paste(gsub('_', '\\_', grep('^f_', param_names()$met, invert = T, value = T), fixed = T), collapse = ', ')} \\~\\
+\end{column}
+\begin{column}{0.3\textwidth}
+\Bigtxt{Nutrients} \\~\\
+\Sexpr{paste(gsub('_', '\\_', grep('^f_', param_names()$nut, invert = T, value = T), fixed = T), collapse = ', ')}
+\end{column}
+\end{columns}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t]{What is NERRS/SWMP?}
+Data maintained by the Centralized Data Management Office (\href{http://cdmo.baruch.sc.edu/}{CDMO})\\~\\
+\centerline{\includegraphics[width = \textwidth]{fig/cdmo_front.png}}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t]{What is NERRS/SWMP?}
+As of April 10, $>$ 58 million SWMP data records available from CDMO\\~\\
+Raw data will look like this...\\~\\
+\centerline{\includegraphics[width = 0.9\textwidth]{fig/qaqc_ex.png}}
+\end{frame}
+
+%%%%%%
+\begin{frame}{What is the problem?}
+An invaluable data source but no recent comparative analyses between systems \\~\\
+NERRS researchers, managers, and technicians need more tools for trend analysis \\~\\
+Some specific issues:\\~\\
+\begin{itemize}
+\item Knowing what data to use and how to obtain
+\item Dealing with QAQC columns or removing `bad' observations
+\item Combining data for comparison
+\item Issues inherent with time series, e.g., signal vs. noise, data quantity
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{What is the (potential) solution?}
+\centerline{\includegraphics[width = 0.9\textwidth]{fig/swmpr_logo.png}}
+\vspace{0.1in}
+SWMPr v2.0.0 is now available on \href{http://cran.r-project.org/web/packages/SWMPr/index.html}{CRAN}!
+<<eval = F>>=
+install.packages('SWMPr')
+library(SWMPR)
+@
+Currently no vignette, but working on a manuscript
+\end{frame}
+
+\section{Package development}
+
+%%%%%%
+\begin{frame}[fragile]{The process of package development}
+The development version lives on GitHub: \href{https://github.com/fawda123/SWMPr}{https://github.com/fawda123/SWMPr} \\~\\
+The package development process was much simplified using RStudio and the Hadleyverse (specifically \href{http://cran.r-project.org/web/packages/devtools/index.html}{devtools}, \href{http://cran.r-project.org/web/packages/roxygen2/index.html}{roxygen2}) \\~\\
+In RStudio, create a package template: \\~\\
+\texttt{File $>$ New Project $>$ New Directory $>$ R Package}, with options for Git version control \\~\\
+Package does not have to be on CRAN to distribute...
+\end{frame}
+
+%%%%%%
+\begin{frame}{The process of package development}
+Follow the advice here: \href{http://r-pkgs.had.co.nz/}{http://r-pkgs.had.co.nz/}\\~\\
+\centerline{\includegraphics[width = 0.9\textwidth]{fig/hadley_book.png}}
+\end{frame}
+
+\section{SWMPr capabilities}
+
+%%%%%%
+\begin{frame}[t]{What can SWMPr do?}
+SWMPr functions are grouped into three categories that describe their use in the `data workflow' \\~\\
+\begin{columns}[t]
+\begin{column}{0.3\textwidth}
+\Bigtxt{Retrieve}\\~\\
+\small{
+\texttt{all\_params}\\
+\texttt{all\_params_dtrng}\\
+\texttt{import\_local}\\
+\texttt{import\_remote}\\
+\texttt{single\_param}\\
+\texttt{site\_codes}\\
+\texttt{site\_codes\_ind}
+}
+\end{column}
+\begin{column}{0.3\textwidth}
+\Bigtxt{Organize}\\~\\
+\small{
+\texttt{comb}\\
+\texttt{qaqc}\\
+\texttt{qaqcchk}\\
+\texttt{rem\_reps}\\
+\texttt{setstep}\\
+\texttt{subset}\\
+}
+\end{column}
+\begin{column}{0.3\textwidth}
+\Bigtxt{Analyze}\\~\\
+\small{
+\texttt{aggreswmp}\\
+\texttt{aggremetab}\\
+\texttt{ecometab}\\
+\texttt{decomp}\\
+\texttt{decomp\_cj}\\
+\texttt{hist}\\
+\texttt{lines}\\
+\texttt{na.approx}\\
+\texttt{plot}\\
+\texttt{plot\_metab}\\
+\texttt{plot\_summary}\\
+\texttt{smoother}\\
+}
+\end{column}
+\end{columns}
+\end{frame}
+
+%%%%%%
+\begin{frame}{How are data \Bigtxt{retrieved}?}
+The first challenge is to determine the station, parameter, and date range of interest - Check the available data on the CDMO website \\~\\
+Also familiarize yourself with the NERRS/SWMP naming convention\\~\\  
+\Bigtxt{Site} (reserve), \Bigtxt{station}, and \Bigtxt{parameter type} are identified by a 7 or 8 character name \\~\\
+E.g., elkcwmet \\~\\
+\begin{itemize}
+\item elk: site, Elkhorn Slough
+\item cw: station, Caspian Weather Station
+\item met: parameter type (weather)
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t]{How are data \Bigtxt{retrieved}?}
+SWMP data can be imported from CDMO into R three ways\\~\\
+1) From a local path: \texttt{import\_local} \\~\\
+Advantages: \\~\\
+\begin{itemize}
+\item Ideal for large datasets
+\item Most recent data \\~\\
+\end{itemize}
+Disadvantages: \\~\\
+\begin{itemize}
+\item Outside of R
+\item Only works for one type of data request from CDMO
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t]{How are data \Bigtxt{retrieved}?}
+SWMP data can be imported from CDMO into R three ways\\~\\
+2) retrieve SWMP data from a third-party server: \texttt{import\_remote}, \\~\\
+Advantages:\\~\\
+\begin{itemize}
+\item Fast import!
+\item No requests to CDMO\\~\\
+\end{itemize}
+Disadvantages:\\~\\
+\begin{itemize}
+\item Data are not current
+\item Requires further processing - date subsets, etc.
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}[t]{How are data \Bigtxt{retrieved}?}
+SWMP data can be imported from CDMO into R three ways\\~\\
+3) Use the existing CDMO web services to import directly:  \texttt{single\_param}, \texttt{all\_params}, \texttt{all\_params\_dtrng} \\~\\
+Advantages: \\~\\
+\begin{itemize}
+\item Current
+\item Customized requests\\~\\
+\end{itemize}
+Disadvantages:\\~\\
+\begin{itemize}
+\item IP address must be registered
+\item Quantity severely limited
+\end{itemize}
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile,t]{How are data \Bigtxt{retrieved}?}
+The best approach depends on your needs \\~\\
+The end result is the same - data are imported as a \texttt{swmpr} S3 object
+<<>>=
+dat <- import_remote('kacsswq')
+class(dat)
+names(attributes(dat))
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile,t]{How are data \Bigtxt{retrieved}?}
+The remaining functions have \texttt{swmpr} methods
+<<size='small'>>=
+methods(class = 'swmpr')
+@
+\texttt{swmpr} objects also inherit methods from the \texttt{data.frame} class
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile,t]{How are data \Bigtxt{organized}?}
+test
+\end{frame}
+
 
 \end{document}
