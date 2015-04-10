@@ -341,8 +341,84 @@ methods(class = 'swmpr')
 
 %%%%%%
 \begin{frame}[fragile,t]{How are data \Bigtxt{organized}?}
-test
+Data organization depends on the analysis needs - it is neither fun nor straightforward (common opinion, not mine) \\~\\
+What are some challenges?\\~\\
+\begin{itemize}
+\item Imported data have QAQC columns
+\item Extra columns/rows
+\item Maybe we don't care about all the parameters
+\item Data from separate sites are in separate objects \\~\\
+\end{itemize}
+The \Bigtxt{organize} functions are specific to the SWMP data but many of the principles apply to generic time series
 \end{frame}
 
+%%%%%%
+\begin{frame}[fragile]{How are data \Bigtxt{organized}?}
+A relevant example - we want to compare time series from different sites\\~\\
+\begin{itemize}
+\item Data may have arbitrary time steps that do not match between sites \\~\\
+\item Date ranges may also differ \\~\\
+\end{itemize}
+The \texttt{setstep} and \texttt{comb} functions address these issues! \\~\\
+<<>>=
+met <- import_remote('apaebmet')
+wq <- import_remote('apacpwq')
+dat <- comb(met, wq) # tada!
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}{How are data \Bigtxt{organized}?}
+The \texttt{setstep} function is used within \texttt{comb} to standardize the time steps for each input object \\~\\
+A tricky problem - actual observations which may occur on an arbitrary step must be matched to a set time step\\~\\
+This function uses `fast-ordered joins' from the \href{http://cran.r-project.org/web/packages/data.table/index.html}{data.table} package using the `nearest' method\\~\\
+Also must define a threshold for matching: +/- some buffer of allowance beyond which matches are discarded \\~\\
+\end{frame}
+
+%%%%%%
+\begin{frame}{How are data \Bigtxt{organized}?}
+Mechanistically, \texttt{setstep} does the following for each data object: \\~\\
+\begin{itemize}
+\item Create a continuous `master' time series at defined step using first/last time stamps
+\item Match existing observations to standardized using `nearest' join method
+\item Calculate difference in time between matched and standardized step, discard those beyond threshold \\~\\
+\end{itemize}
+Standardized datasets are then combined by absolute matching of time steps
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{How are data \Bigtxt{organized}?}
+<<size = 'small'>>=
+dim(met)
+dim(wq)
+# standardize time step to two hours
+# maximum difference for matching 30 minutes
+# combine only overlapping time ranges
+dat <- comb(wq, met, timestep = 120, differ = 30, 
+  method = 'intersect')
+dim(dat)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{How are data \Bigtxt{organized}?}
+<<size = 'small'>>=
+head(dat, 4)
+@
+\end{frame}
+
+%%%%%
+\begin{frame}{How are data \Bigtxt{analyzed}?}
+Time series analysis can be very general or very specific...\\~\\
+
+\end{frame}
+
+\section{SWMPr applications}
+
+%%%%%
+\begin{frame}{Applications}
+
+\end{frame}
 
 \end{document}
+

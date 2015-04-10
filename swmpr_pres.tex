@@ -381,8 +381,126 @@ The remaining functions have \texttt{swmpr} methods
 
 %%%%%%
 \begin{frame}[fragile,t]{How are data \Bigtxt{organized}?}
-test
+Data organization depends on the analysis needs - it is neither fun nor straightforward (common opinion, not mine) \\~\\
+What are some challenges?\\~\\
+\begin{itemize}
+\item Imported data have QAQC columns
+\item Extra columns/rows
+\item Maybe we don't care about all the parameters
+\item Data from separate sites are in separate objects \\~\\
+\end{itemize}
+The \Bigtxt{organize} functions are specific to the SWMP data but many of the principles apply to generic time series
 \end{frame}
 
+%%%%%%
+\begin{frame}[fragile]{How are data \Bigtxt{organized}?}
+A relevant example - we want to compare time series from different sites\\~\\
+\begin{itemize}
+\item Data may have arbitrary time steps that do not match between sites \\~\\
+\item Date ranges may also differ \\~\\
+\end{itemize}
+The \texttt{setstep} and \texttt{comb} functions address these issues! \\~\\
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.929, 0.973, 0.984}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{> }\hlstd{met} \hlkwb{<-} \hlkwd{import_remote}\hlstd{(}\hlstr{'apaebmet'}\hlstd{)}
+\hlstd{> }\hlstd{wq} \hlkwb{<-} \hlkwd{import_remote}\hlstd{(}\hlstr{'apacpwq'}\hlstd{)}
+\hlstd{> }\hlstd{dat} \hlkwb{<-} \hlkwd{comb}\hlstd{(met, wq)} \hlcom{# tada!}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}{How are data \Bigtxt{organized}?}
+The \texttt{setstep} function is used within \texttt{comb} to standardize the time steps for each input object \\~\\
+A tricky problem - actual observations which may occur on an arbitrary step must be matched to a set time step\\~\\
+This function uses `fast-ordered joins' from the \href{http://cran.r-project.org/web/packages/data.table/index.html}{data.table} package using the `nearest' method\\~\\
+Also must define a threshold for matching: +/- some buffer of allowance beyond which matches are discarded \\~\\
+\end{frame}
+
+%%%%%%
+\begin{frame}{How are data \Bigtxt{organized}?}
+Mechanistically, \texttt{setstep} does the following for each data object: \\~\\
+\begin{itemize}
+\item Create a continuous `master' time series at defined step using first/last time stamps
+\item Match existing observations to standardized using `nearest' join method
+\item Calculate difference in time between matched and standardized step, discard those beyond threshold \\~\\
+\end{itemize}
+Standardized datasets are then combined by absolute matching of time steps
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{How are data \Bigtxt{organized}?}
+\begin{knitrout}\small
+\definecolor{shadecolor}{rgb}{0.929, 0.973, 0.984}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{> }\hlkwd{dim}\hlstd{(met)}
+\end{alltt}
+\begin{verbatim}
+## [1] 490847     11
+\end{verbatim}
+\begin{alltt}
+\hlstd{> }\hlkwd{dim}\hlstd{(wq)}
+\end{alltt}
+\begin{verbatim}
+## [1] 455808     13
+\end{verbatim}
+\begin{alltt}
+\hlstd{> }\hlcom{# standardize time step to two hours}
+\hlstd{> }\hlcom{# maximum difference for matching 30 minutes}
+\hlstd{> }\hlcom{# combine only overlapping time ranges}
+\hlstd{> }\hlstd{dat} \hlkwb{<-} \hlkwd{comb}\hlstd{(wq, met,} \hlkwc{timestep} \hlstd{=} \hlnum{120}\hlstd{,} \hlkwc{differ} \hlstd{=} \hlnum{30}\hlstd{,}
+\hlstd{+ }  \hlkwc{method} \hlstd{=} \hlstr{'intersect'}\hlstd{)}
+\hlstd{> }\hlkwd{dim}\hlstd{(dat)}
+\end{alltt}
+\begin{verbatim}
+## [1] 56977    23
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile]{How are data \Bigtxt{organized}?}
+\begin{knitrout}\small
+\definecolor{shadecolor}{rgb}{0.929, 0.973, 0.984}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{> }\hlkwd{head}\hlstd{(dat,} \hlnum{4}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+##         datetimestamp atemp rh   bp wspd maxwspd wdir
+## 1 2001-12-31 23:00:00     4 69 1017    4      NA  347
+## 2 2002-01-01 01:00:00     3 75 1017    3      NA    9
+## 3 2002-01-01 03:00:00     2 77 1018    3      NA  331
+## 4 2002-01-01 05:00:00     1 82 1019    4      NA    0
+##   sdwdir totpar totprcp totsorad temp spcond sal do_pct
+## 1     NA      0      NA       NA   NA     NA  NA     NA
+## 2     NA      0      NA       NA   12     37  24    104
+## 3     NA      0      NA       NA   12     40  26     99
+## 4     NA      0      NA       NA   11     42  26     98
+##   do_mgl depth cdepth level clevel ph turb chlfluor
+## 1     NA    NA     NA    NA     NA NA   NA       NA
+## 2     10     2     NA    NA     NA NA    3       NA
+## 3      9     2     NA    NA     NA NA    4       NA
+## 4      9     2     NA    NA     NA NA    5       NA
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\end{frame}
+
+%%%%%
+\begin{frame}{How are data \Bigtxt{analyzed}?}
+Time series analysis can be very general or very specific...\\~\\
+
+\end{frame}
+
+\section{SWMPr applications}
+
+%%%%%
+\begin{frame}{Applications}
+
+\end{frame}
 
 \end{document}
+
