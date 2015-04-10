@@ -1,0 +1,3 @@
+# README
+
+Materials for presentation that describes the SWMPr package.  Please see the [SWMPr repository](https://github.com/fawda123/swmpr) for a full package description.  
