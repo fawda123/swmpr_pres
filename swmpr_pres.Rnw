@@ -1,0 +1,105 @@
+\documentclass[serif]{beamer}
+\usetheme{Boadilla}
+\usetheme{Boadilla}
+\usepackage{graphicx}
+\usepackage[final]{animate}
+\usepackage{breqn}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{shapes,arrows,positioning,shadows}
+\usepackage{subfig}
+\usepackage{pgf}
+
+% knitr and global options
+<<setup, include = F, cache = F>>=
+library(knitr)
+opts_chunk$set(fig.path = 'fig/', fig.align = 'center', fig.show = 'hold', message = FALSE, dev = 'pdf', dev.args = list(family = 'serif'), fig.pos = '!ht', warning = FALSE, size = 'scriptsize', cache = TRUE)
+options(replace.assign = TRUE, width = 80, digits = 1)
+@
+
+% load R libraries
+<<eval = T, echo = F, cache = F, message = F>>=
+library(SWMPr)
+library(RColorBrewer)
+library(scales)
+@
+
+% custom colors
+<<mypal, echo = F, results = 'asis', cache = F>>=
+pal <- function(x) brewer.pal(x, 'BuGn')
+num_col <- 5
+
+for(i in 1:num_col){
+ 
+  col.nm <- paste0('mypal',i)
+  hexa <- paste0(gsub('#', '', pal(5)[i]))
+  cat(paste0('\\definecolor{', col.nm,'}{HTML}{',hexa,'}'))
+  
+}
+
+bg_col <- scales::alpha(pal(num_col)[3], 0.3)
+
+pdf('fig/back_tmp.pdf',bg = bg_col)
+frame()
+invisible(dev.off())
+@
+
+% my custom ggplot theme
+<<my_ggplot, echo = F, results = 'hide' , message = F>>=
+theme_mine <- function (base_size = 12, base_family = "") {
+  theme_bw(base_size = base_size, base_family = base_family) %+replace% 
+  theme(
+    plot.background = element_rect(fill='transparent', 
+      colour = NA),
+    panel.background = element_rect(fill='transparent', 
+      colour = NA),
+    legend.background = element_rect(fill='transparent', 
+      colour = NA),
+    strip.background = element_rect(fill = 
+        alpha(pal(5)[5],0.5)),
+    legend.key = element_rect(fill = 'transparent', 
+      colour = NA)
+    )   
+}
+
+# set as default
+theme_set(theme_mine())
+@
+
+\setbeamercolor{title}{fg=mypal5} % main title
+\setbeamercolor{frametitle}{fg=mypal4, bg=mypal2} % frame titles
+\setbeamercolor{structure}{fg=mypal4} % bottom banner
+\setbeamercolor{normal text}{fg=mypal5}
+\usebackgroundtemplate{\includegraphics[height=\paperheight,width=\paperwidth]{fig/back_tmp.pdf}}
+
+\tikzstyle{block} = [rectangle, draw, text width=9em, text centered, rounded corners, minimum height=3em, minimum width=7em, top color = white, bottom color=brown!30,  drop shadow]
+
+\newcommand{\ShowSexpr}[1]{\texttt{{\char`\\}Sexpr\{#1\}}}
+
+\newcommand{\Bigtxt}[1]{\textbf{\textit{#1}}}
+
+\begin{document}
+
+\title[SWMPr for estuarine time series]{SWMPr: An R package for estuarine water quality time series}
+
+\author[M. Beck]{Marcus W. Beck\inst{1}}
+
+\date{}
+
+\institute[]{\inst{1} ORISE, USEPA NHEERL Gulf Ecology Division\\ Email: \href{mailto:beck.marcus@epa.gov}{beck.marcus@epa.gov}}
+
+%%%%%%
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section{background}
+
+%%%%%%
+\begin{frame}{overview}
+
+\end{frame}
+
+\end{document}
