@@ -116,7 +116,7 @@ theme_set(theme_mine())
 \begin{frame}{Overview}
 A mixture of things...\\~\\
 \begin{itemize}
-\item What is NERSS/SWMP and motivation for creating the package \\~\\
+\item What is NERRS/SWMP and motivation for creating the package \\~\\
 \item The process of package development \\~\\
 \item What can SWMPr do \\~\\
 \item What has SWMPr done \\~\\

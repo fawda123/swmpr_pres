@@ -1,5 +1,5 @@
 \frametitle{How are data \Bigtxt {analyzed}?}
-Some examples... additive decomposition with \texttt{ecometab}
+Some examples... estimate metabolism with \texttt{ecometab}
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.929, 0.973, 0.984}\color{fgcolor}\begin{kframe}
 \begin{alltt}
