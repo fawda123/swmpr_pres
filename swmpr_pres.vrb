@@ -1,25 +1,26 @@
-\frametitle{How are data \Bigtxt {organized}?}
-\begin{knitrout}\small
+\frametitle{How are data \Bigtxt {analyzed}?}
+Some examples... additive decomposition with \texttt{ecometab}
+\begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.929, 0.973, 0.984}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{> }\hlkwd{head}\hlstd{(dat,} \hlnum{4}\hlstd{)}
+\hlstd{> }\hlcom{## import water quality and weather data, combine}
+\hlstd{> }\hlstd{w} \hlkwb{<-} \hlkwd{import_remote}\hlstd{(}\hlstr{'apebbwq'}\hlstd{)}
+\hlstd{> }\hlstd{met} \hlkwb{<-} \hlkwd{import_remote}\hlstd{(}\hlstr{'apaebmet'}\hlstd{)}
+\hlstd{> }\hlstd{dat} \hlkwb{<-} \hlkwd{comb}\hlstd{(wq, met)}
+\hlstd{> }
+\hlstd{> }\hlcom{## metabolism, plot}
+\hlstd{> }\hlstd{res} \hlkwb{<-} \hlkwd{ecometab}\hlstd{(dat,} \hlkwc{metab_units} \hlstd{=} \hlstr{'grams'}\hlstd{)}
+\hlstd{> }\hlkwd{plot_metab}\hlstd{(res,} \hlkwc{by} \hlstd{=} \hlstr{'months'}\hlstd{)}
 \end{alltt}
-\begin{verbatim}
-##         datetimestamp atemp rh   bp wspd maxwspd wdir
-## 1 2001-12-31 23:00:00     4 69 1017    4      NA  347
-## 2 2002-01-01 01:00:00     3 75 1017    3      NA    9
-## 3 2002-01-01 03:00:00     2 77 1018    3      NA  331
-## 4 2002-01-01 05:00:00     1 82 1019    4      NA    0
-##   sdwdir totpar totprcp totsorad temp spcond sal do_pct
-## 1     NA      0      NA       NA   NA     NA  NA     NA
-## 2     NA      0      NA       NA   12     37  24    104
-## 3     NA      0      NA       NA   12     40  26     99
-## 4     NA      0      NA       NA   11     42  26     98
-##   do_mgl depth cdepth level clevel ph turb chlfluor
-## 1     NA    NA     NA    NA     NA NA   NA       NA
-## 2     10     2     NA    NA     NA NA    3       NA
-## 3      9     2     NA    NA     NA NA    4       NA
-## 4      9     2     NA    NA     NA NA    5       NA
-\end{verbatim}
 \end{kframe}
+\end{knitrout}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.929, 0.973, 0.984}\color{fgcolor}
+
+{\centering \includegraphics[width=0.95\textwidth]{fig//ecometab}
+
+}
+
+
+
 \end{knitrout}

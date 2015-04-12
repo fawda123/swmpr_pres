@@ -17,13 +17,20 @@
 % knitr and global options
 <<setup, include = F, cache = F>>=
 library(knitr)
+# global knitr options
 opts_chunk$set(fig.path = 'fig/', fig.align = 'center', fig.show = 'hold', message = FALSE, dev = 'pdf', dev.args = list(family = 'serif'), fig.pos = '!ht', warning = FALSE, cache = TRUE, prompt = TRUE, background = '#EDF8FB')
+# chunk hook for par
+knit_hooks$set(par = function(before, options, envir){
+  if (before && options$fig.show!='none') par(mar=c(4,4,.1,.1))
+})
+#global R optoins
 options(replace.assign = TRUE, width = 60, digits = 1)
 @
 
 % load R libraries
 <<eval = T, echo = F, cache = F, message = F>>=
-library(SWMPr)
+# library(SWMPr)
+devtools::load_all('M:/docs/SWMPr')
 library(RColorBrewer)
 library(scales)
 @
@@ -182,8 +189,8 @@ Some specific issues:\\~\\
 
 %%%%%%
 \begin{frame}[fragile]{What is the (potential) solution?}
-\centerline{\includegraphics[width = 0.9\textwidth]{fig/swmpr_logo.png}}
-\vspace{0.1in}
+\centerline{\includegraphics[width = 0.8\textwidth]{fig/swmpr_logo.png}}
+\vspace{0.15in}
 SWMPr v2.0.0 is now available on \href{http://cran.r-project.org/web/packages/SWMPr/index.html}{CRAN}!
 <<eval = F>>=
 install.packages('SWMPr')
@@ -209,7 +216,6 @@ Follow the advice here: \href{http://r-pkgs.had.co.nz/}{http://r-pkgs.had.co.nz/
 \centerline{\includegraphics[width = 0.9\textwidth]{fig/hadley_book.png}}
 \end{frame}
 
-\section{SWMPr capabilities}
 
 %%%%%%
 \begin{frame}[t]{What can SWMPr do?}
@@ -320,12 +326,12 @@ Disadvantages:\\~\\
 \end{frame}
 
 %%%%%%
-\begin{frame}[fragile,t]{How are data \Bigtxt{retrieved}?}
-The best approach depends on your needs \\~\\
+\begin{frame}[fragile,t,shrink]{How are data \Bigtxt{retrieved}?}
 The end result is the same - data are imported as a \texttt{swmpr} S3 object
-<<>>=
+<<size = 'small'>>=
 dat <- import_remote('kacsswq')
 class(dat)
+head(dat, 1)
 names(attributes(dat))
 @
 \end{frame}
@@ -383,7 +389,7 @@ Mechanistically, \texttt{setstep} does the following for each data object: \\~\\
 \item Match existing observations to standardized using `nearest' join method
 \item Calculate difference in time between matched and standardized step, discard those beyond threshold \\~\\
 \end{itemize}
-Standardized datasets are then combined by absolute matching of time steps
+Data objects, now standarized, are then combined by absolute matching of time steps
 \end{frame}
 
 %%%%%%
@@ -409,16 +415,159 @@ head(dat, 4)
 
 %%%%%
 \begin{frame}{How are data \Bigtxt{analyzed}?}
-Time series analysis can be very general or very specific...\\~\\
+Time series analysis can range from very general or very specific \\~\\
+SWMPr functions include...\\~\\
+\begin{columns}
+\begin{column}{0.45\textwidth}
+\Bigtxt{General} \\~\\
+\begin{itemize}
+\item \texttt{na.approx}
+\item \texttt{smoother}
+\item \texttt{aggreswmp}
+\item \texttt{plot}
+\item \texttt{hist}
+\item \texttt{lines}
+\end{itemize}
+\end{column}
+\begin{column}{0.45\textwidth}
+\Bigtxt{Specific} \\~\\
+\begin{itemize}
+\item \texttt{decomp}
+\item \texttt{decomp\_cj}
+\item \texttt{ecometab}
+\item \texttt{aggremetab}
+\item \texttt{plot\_metab}
+\item \texttt{plot\_summary}
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
 
+%%%%%%
+\begin{frame}[fragile]{How are data \Bigtxt{analyzed}?}
+Some examples... fill missing data with \texttt{na.approx}
+<<'/filled', fig.width = 7, fig.height = 2, size = 'scriptsize', par = T, out.width = '0.9\\textwidth'>>=
+# import, organize
+data(apadbwq)
+dat <- qaqc(apadbwq)
+dat <- subset(dat, select = 'do_mgl', 
+  subset = c('2013-01-22 00:00', '2013-01-26 00:00')
+  )
+
+# interpolate, plot
+filled <- na.approx(dat, params = 'do_mgl', maxgap = 10)
+plot(filled, col = 'red'); lines(dat, lwd = 2)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile,t]{How are data \Bigtxt{analyzed}?}
+Some examples... smooth data with \texttt{smoother}
+<<'/smooth', fig.width = 7, fig.height = 2, size = 'scriptsize', par = T, out.width = '0.9\\textwidth'>>=
+# import, organize
+data(apadbwq)
+dat <- qaqc(apadbwq)
+dat <- subset(dat, select = 'do_mgl', 
+  subset = c('2012-07-09 00:00', '2012-07-24 00:00'))
+
+# smooth, plot
+dat_smooth <- smoother(dat, window = 50, params = 'do_mgl')
+plot(dat); lines(dat_smooth, col = 'red', lwd = 2)
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile,t]{How are data \Bigtxt{analyzed}?}
+Some examples... additive decomposition with \texttt{decomp\_cj}
+<<'decomp_dep', echo = T, eval = F, size = 'tiny'>>=
+# import, organize
+dat <- import_remote('cbmocnut')
+dat$chla_n <- log(dat$chla_n)
+
+# additive decompision of chl, annual
+decomp_cj(dat, 'chla_n', type = 'add')
+@
+<<'/decomped', fig.width = 8, fig.height = 4, out.width = '0.85\\textwidth', echo = F>>=
+# import, organize
+dat <- import_remote('cbmocnut')
+dat <- subset(dat, select = 'chla_n')
+dat$chla_n <- log(dat$chla_n)
+
+# additive decompision of chl
+out <- decomp_cj(dat, 'chla_n', type = 'add')
+out <- out + theme_mine()
+out
+@
+\end{frame}
+
+%%%%%%
+\begin{frame}[fragile,t]{How are data \Bigtxt{analyzed}?}
+Some examples... estimate metabolism with \texttt{ecometab}
+<<'ecometab_dep', echo = T, eval = F, size = 'scriptsize', cache = T>>=
+## import water quality and weather data, combine
+w <- import_remote('apebbwq')
+met <- import_remote('apaebmet')
+dat <- comb(wq, met)
+
+## metabolism, plot
+res <- ecometab(dat, metab_units = 'grams')
+plot_metab(res, by = 'months') 
+@
+<<'/ecometab', fig.width = 8, fig.height = 2.5, out.width = '0.95\\textwidth', echo = F, cache = T>>=
+wq <- import_remote('apadbwq')
+met <- import_remote('apaebmet')
+dat <- comb(wq, met)
+
+## metaobolism, plot
+res <- ecometab(dat, metab_units = 'grams')
+out <- plot_metab(res, by = 'months') 
+out <- out + theme_mine()
+out
+@
 \end{frame}
 
 \section{SWMPr applications}
 
-%%%%%
-\begin{frame}{Applications}
-
+%%%%%%
+\begin{frame}{SWMPr applications}
+The most common question - has there been a change over time at my site? \\~\\
+The functions in the package can help address this questions...\\~\\
+but it's often easier to interactively evaluate the data! \\~\\
+Two shiny applications, hosted in \href{http://www.shinyapps.io/}{shinyapps.io}, allow users to visualize trends in SWMP data \\~\\
+These apps were created using SWMPr functions or use them `reactively'
 \end{frame}
 
-\end{document}
+%%%%%%
+\begin{frame}[t]{SWMPr applications}
+SWMP summary plots: \href{https://beckmw.shinyapps.io/swmp_summary/}{https://beckmw.shinyapps.io/swmp\_summary/}\\~\\
+\centerline{\includegraphics[width = 0.7\textwidth]{fig/swmp_summary.png}}
+\end{frame}
 
+%%%%%%
+\begin{frame}[t]{SWMPr applications}
+SWMP trends map: \href{https://beckmw.shinyapps.io/swmp_comp/}{https://beckmw.shinyapps.io/swmp\_comp/}\\~\\
+\centerline{\includegraphics[width = 0.7\textwidth]{fig/swmp_comp.png}}
+\end{frame}
+
+\section{Conclusions}
+
+%%%%%%
+\begin{frame}{Conclusions}
+The SWMPr package provides an R-centric approach to \Bigtxt{retrieve}, \Bigtxt{organize}, and \Bigtxt{analyze} estuary data \\~\\
+SWMPr is meant to \Bigtxt{augment}, not replace, existing data management programs (e.g., CDMO web services) \\~\\
+\Bigtxt{Benefits of the package}: deals with lots of the heavy lifting with large, unrefined datasets \\~\\
+\Bigtxt{Some points of concern}: do not use functions ad nauseum, always refer to help files and optional arguments\\~\\
+Just because you can do something doesn't mean you should!
+\end{frame}
+
+%%%%%%
+\begin{frame}{Conclusions}
+\centerline{\includegraphics[width = 0.8\textwidth]{fig/swmpr_logo.png}}
+\vspace{0.15in}
+Visit the development repo for the most recent version or to submit a bug report: \href{https://github.com/fawda123/SWMPr}{https://github.com/fawda123/SWMPr}\\~\\
+To learn more about NERRS: \href{http://www.nerrs.noaa.gov/}{http://cdmo.baruch.sc.edu/} \\~\\
+To learn more about SWMP/CDMO: \href{http://cdmo.baruch.sc.edu/}{http://cdmo.baruch.sc.edu/}
+\end{frame}
+
+
+\end{document}
