@@ -29,8 +29,8 @@ options(replace.assign = TRUE, width = 60, digits = 1)
 
 % load R libraries
 <<eval = T, echo = F, cache = F, message = F>>=
-# library(SWMPr)
-devtools::load_all('M:/docs/SWMPr')
+library(SWMPr)
+# devtools::load_all('M:/docs/SWMPr')
 library(RColorBrewer)
 library(scales)
 @
@@ -94,11 +94,11 @@ theme_set(theme_mine())
 
 \title[SWMPr for estuarine time series]{SWMPr: An R package for estuarine water quality time series}
 
-\author[M. Beck]{Marcus W. Beck\inst{1}}
+\author[M. Beck]{Marcus W. Beck}
 
 \date{April 15, 2015}
 
-\institute[]{\inst{1} ORISE, USEPA NHEERL Gulf Ecology Division\\ Email: \href{mailto:beck.marcus@epa.gov}{beck.marcus@epa.gov}}
+\institute[]{ORISE, USEPA NHEERL Gulf Ecology Division\\ Email: \href{mailto:beck.marcus@epa.gov}{beck.marcus@epa.gov}}
 
 \titlegraphic{
 \centerline{
@@ -117,7 +117,7 @@ theme_set(theme_mine())
 A mixture of things...\\~\\
 \begin{itemize}
 \item What is NERRS/SWMP and motivation for creating the package \\~\\
-\item The process of package development \\~\\
+\item The process of package development (briefly) \\~\\
 \item What can SWMPr do \\~\\
 \item What has SWMPr done \\~\\
 \end{itemize}
@@ -128,7 +128,7 @@ A mixture of things...\\~\\
 %%%%%%
 \begin{frame}{What is NERRS/SWMP?}{}
 {\bf NERRS}\\
-National Estuarine Research Reserve System, established by Coastal Zone Management Act of 1972.  Address goals for \Bigtxt{long-term research}, \Bigtxt{monitoring}, \Bigtxt{education}, and \Bigtxt{stewardship} for more effective coastal management.\\~\\
+National Estuarine Research Reserve System, established by Coastal Zone Management Act of 1972. Focus on \Bigtxt{long-term research}, \Bigtxt{monitoring}, \Bigtxt{education}, and \Bigtxt{stewardship} for more effective coastal management.\\~\\
 {\bf SWMP}\\
 System Wide Monitoring Program, initiated in 1995 to provide \Bigtxt{continuous monitoring} data at over 300 stations in in each of the 28 NERRS reserves \\~\\
 \end{frame}
@@ -296,7 +296,7 @@ Disadvantages: \\~\\
 %%%%%%
 \begin{frame}[t]{How are data \Bigtxt{retrieved}?}
 SWMP data can be imported from CDMO into R three ways\\~\\
-2) retrieve SWMP data from a third-party server: \texttt{import\_remote}, \\~\\
+2) retrieve SWMP data from a \href{https://s3.amazonaws.com/swmpalldata/}{third-party server}: \texttt{import\_remote} \\~\\
 Advantages:\\~\\
 \begin{itemize}
 \item Fast import!
@@ -305,17 +305,17 @@ Advantages:\\~\\
 Disadvantages:\\~\\
 \begin{itemize}
 \item Data are not current
-\item Requires further processing - date subsets, etc.
+\item Data have already been minimally processed
 \end{itemize}
 \end{frame}
 
 %%%%%%
 \begin{frame}[t]{How are data \Bigtxt{retrieved}?}
 SWMP data can be imported from CDMO into R three ways\\~\\
-3) Use the existing CDMO web services to import directly:  \texttt{single\_param}, \texttt{all\_params}, \texttt{all\_params\_dtrng} \\~\\
+3) Use the existing CDMO \href{http://cdmo.baruch.sc.edu/webservices.cfm}{web services} to import directly:  \texttt{single\_param}, \texttt{all\_params}, \texttt{all\_params\_dtrng} \\~\\
 Advantages: \\~\\
 \begin{itemize}
-\item Current
+\item Data will always be current
 \item Customized requests\\~\\
 \end{itemize}
 Disadvantages:\\~\\
@@ -385,11 +385,11 @@ Also must define a threshold for matching: +/- some buffer of allowance beyond w
 \begin{frame}{How are data \Bigtxt{organized}?}
 Mechanistically, \texttt{setstep} does the following for each data object: \\~\\
 \begin{itemize}
-\item Create a continuous `master' time series at defined step using first/last time stamps
-\item Match existing observations to standardized using `nearest' join method
-\item Calculate difference in time between matched and standardized step, discard those beyond threshold \\~\\
+\item Creates a continuous `master' time series at defined step using first/last time stamps
+\item Matches existing observations to standardized using `nearest' join method
+\item Calculates difference in time between matched and standardized step, discards those beyond threshold \\~\\
 \end{itemize}
-Data objects, now standarized, are then combined by absolute matching of time steps
+Data objects, now standarized, are then combined by absolute matching of time steps, again using \href{http://cran.r-project.org/web/packages/data.table/index.html}{data.table}
 \end{frame}
 
 %%%%%%
@@ -415,7 +415,7 @@ head(dat, 4)
 
 %%%%%
 \begin{frame}{How are data \Bigtxt{analyzed}?}
-Time series analysis can range from very general or very specific \\~\\
+Time series analysis can range from very general to very specific \\~\\
 SWMPr functions include...\\~\\
 \begin{columns}
 \begin{column}{0.45\textwidth}
@@ -444,7 +444,7 @@ SWMPr functions include...\\~\\
 \end{frame}
 
 %%%%%%
-\begin{frame}[fragile]{How are data \Bigtxt{analyzed}?}
+\begin{frame}[fragile,t]{How are data \Bigtxt{analyzed}?}
 Some examples... fill missing data with \texttt{na.approx}
 <<'/filled', fig.width = 7, fig.height = 2, size = 'scriptsize', par = T, out.width = '0.9\\textwidth'>>=
 # import, organize
@@ -468,7 +468,8 @@ Some examples... smooth data with \texttt{smoother}
 data(apadbwq)
 dat <- qaqc(apadbwq)
 dat <- subset(dat, select = 'do_mgl', 
-  subset = c('2012-07-09 00:00', '2012-07-24 00:00'))
+  subset = c('2012-07-09 00:00', '2012-07-24 00:00')
+  )
 
 # smooth, plot
 dat_smooth <- smoother(dat, window = 50, params = 'do_mgl')
@@ -505,7 +506,7 @@ out
 Some examples... estimate metabolism with \texttt{ecometab}
 <<'ecometab_dep', echo = T, eval = F, size = 'scriptsize', cache = T>>=
 ## import water quality and weather data, combine
-w <- import_remote('apebbwq')
+wq <- import_remote('apebbwq')
 met <- import_remote('apaebmet')
 dat <- comb(wq, met)
 
@@ -531,10 +532,10 @@ out
 %%%%%%
 \begin{frame}{SWMPr applications}
 The most common question - has there been a change over time at my site? \\~\\
-The functions in the package can help address this questions...\\~\\
-but it's often easier to interactively evaluate the data! \\~\\
-Two shiny applications, hosted in \href{http://www.shinyapps.io/}{shinyapps.io}, allow users to visualize trends in SWMP data \\~\\
-These apps were created using SWMPr functions or use them `reactively'
+The functions in the package can help answer this very general question...\\~\\
+...but it's often easier to interactively evaluate the data! \\~\\
+Two shiny applications, hosted on \href{http://www.shinyapps.io/}{shinyapps.io}, allow users to visualize trends in SWMP data \\~\\
+These apps were created with SWMPr functions or use them `reactively'
 \end{frame}
 
 %%%%%%
@@ -554,7 +555,7 @@ SWMP trends map: \href{https://beckmw.shinyapps.io/swmp_comp/}{https://beckmw.sh
 %%%%%%
 \begin{frame}{Conclusions}
 The SWMPr package provides an R-centric approach to \Bigtxt{retrieve}, \Bigtxt{organize}, and \Bigtxt{analyze} estuary data \\~\\
-SWMPr is meant to \Bigtxt{augment}, not replace, existing data management programs (e.g., CDMO web services) \\~\\
+SWMPr is meant to \Bigtxt{augment}, not replace, existing data management programs (i.e., CDMO web services) \\~\\
 \Bigtxt{Benefits of the package}: deals with lots of the heavy lifting with large, unrefined datasets \\~\\
 \Bigtxt{Some points of concern}: do not use functions ad nauseum, always refer to help files and optional arguments\\~\\
 Just because you can do something doesn't mean you should!
@@ -565,7 +566,8 @@ Just because you can do something doesn't mean you should!
 \centerline{\includegraphics[width = 0.8\textwidth]{fig/swmpr_logo.png}}
 \vspace{0.15in}
 Visit the development repo for the most recent version or to submit a bug report: \href{https://github.com/fawda123/SWMPr}{https://github.com/fawda123/SWMPr}\\~\\
-To learn more about NERRS: \href{http://www.nerrs.noaa.gov/}{http://cdmo.baruch.sc.edu/} \\~\\
+To get this presentation: \href{https://github.com/fawda123/swmpr_pres}{https://github.com/fawda123/swmpr\_pres} \\~\\
+To learn more about NERRS: \href{http://www.nerrs.noaa.gov/}{http://www.nerrs.noaa.gov/} \\~\\
 To learn more about SWMP/CDMO: \href{http://cdmo.baruch.sc.edu/}{http://cdmo.baruch.sc.edu/}
 \end{frame}
 

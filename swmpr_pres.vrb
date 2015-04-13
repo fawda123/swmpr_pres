@@ -4,7 +4,7 @@ Some examples... estimate metabolism with \texttt{ecometab}
 \definecolor{shadecolor}{rgb}{0.929, 0.973, 0.984}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{> }\hlcom{## import water quality and weather data, combine}
-\hlstd{> }\hlstd{w} \hlkwb{<-} \hlkwd{import_remote}\hlstd{(}\hlstr{'apebbwq'}\hlstd{)}
+\hlstd{> }\hlstd{wq} \hlkwb{<-} \hlkwd{import_remote}\hlstd{(}\hlstr{'apebbwq'}\hlstd{)}
 \hlstd{> }\hlstd{met} \hlkwb{<-} \hlkwd{import_remote}\hlstd{(}\hlstr{'apaebmet'}\hlstd{)}
 \hlstd{> }\hlstd{dat} \hlkwb{<-} \hlkwd{comb}\hlstd{(wq, met)}
 \hlstd{> }
